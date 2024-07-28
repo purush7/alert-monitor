@@ -23,15 +23,17 @@ docker logs alert-monitor -f  ## for logs
 
 At a high level, the service operates as follows:
 
-    Event Processing:
-        Whenever a new event is received, the service evaluates the alert configuration associated with that event.
+#### Event Processing:
+ - Whenever a new event is received, the service evaluates the alert configuration associated with that event.
+    
+#### Asynchronous Notifications:
+- If an alert condition is met, the service dispatches notifications to the relevant dispatchers asynchronously. This approach leverages goroutines, which are lightweight and efficient, allowing the system to handle a high volume of dispatches concurrently.
 
-    Asynchronous Notifications:
-        If an alert condition is met, the service dispatches notifications to the relevant dispatchers asynchronously. This approach leverages goroutines, which are lightweight and efficient, allowing the system to handle a high volume of dispatches concurrently.
+#### Scalability Enhancements:
+- For improved scalability, integrating a messaging queue is recommended. This setup allows the service to handle high burst loads by queuing incoming events.
+- Additionally, using an OLAP database like ClickHouse can enhance performance. Unlike traditional relational databases, OLAP systems are optimized for high-speed aggregation queries, making them more suitable for quickly retrieving event counts and performing complex analyses and there isn't any usecase to maintain relational among the data
 
-    Scalability Enhancements:
-        For improved scalability, integrating a messaging queue is recommended. This setup allows the service to handle high burst loads by queuing incoming events.
-        Additionally, using an OLAP database like ClickHouse can enhance performance. Unlike traditional relational databases, OLAP systems are optimized for high-speed aggregation queries, making them more suitable for quickly retrieving event counts and performing complex analyses and there isn't any usecase to maintain relational among the data
+####  Current Implementation:
+- To meet the project's requirements and constraints within a short timeframe, the current implementation uses a RESTful API with PostgreSQL. While this approach is straightforward and effective for the task at hand, future improvements could include adopting a messaging queue and OLAP database to handle larger scales and more complex scenarios efficiently.
 
-    Current Implementation:
-        To meet the project's requirements and constraints within a short timeframe, the current implementation uses a RESTful API with PostgreSQL. While this approach is straightforward and effective for the task at hand, future improvements could include adopting a messaging queue and OLAP database to handle larger scales and more complex scenarios efficiently.
+> Note: Here `internal_ext` directory is used instead of `internal` as `internal` code will be hidden by github. 
