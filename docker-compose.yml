@@ -1,0 +1,23 @@
+version: '3.1'
+
+networks:
+    alertnetwork:
+      driver: bridge
+      name: alertnetwork
+      ipam:
+        config:
+          - subnet: 172.21.0.0/24
+   
+services:
+  database:
+    container_name: alertdb
+    image: postgres
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ~/docker/alert:/var/lib/postgresql/data/
+    ports:
+      - "5435:5432"
+    networks:
+      - alertnetwork

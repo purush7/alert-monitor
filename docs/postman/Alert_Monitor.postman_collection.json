@@ -1,0 +1,178 @@
+{
+	"info": {
+		"_postman_id": "fde3fbea-dc3a-488f-8996-de0b0f1edce4",
+		"name": "Alert_Monitor",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22087627"
+	},
+	"item": [
+		{
+			"name": "alert",
+			"item": [
+				{
+					"name": "create alert",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"client\": \"X\",\n    \"eventType\": \"PAYMENT_EXCEPTION\",\n    \"alertConfig\": {\n      \"type\": \"TUMBLING_WINDOW\",\n      \"count\": 10,\n      \"windowSizeInSecs\": 3600\n    },\n    \"dispatcherConfig\": [\n      {\n        \"type\": \"CONSOLE\",\n        \"message\": \"issue in payment\"\n      },\n      {\n        \"type\": \"EMAIL\",\n        \"subject\": \"payment exception threshold breached\"\n      }\n    ]\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/alerts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"alerts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get alerts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/alerts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"alerts"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get alert",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/alerts/{id}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"alerts",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update alert",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 5,\n    \"client\": \"X\",\n    \"eventType\": \"PAYMENT_EXCEPTION\",\n    \"alertConfig\": {\n      \"type\": \"TUMBLING_WINDOW\",\n      \"count\": 10,\n      \"windowSizeInSecs\": 60\n    },\n    \"dispatcherConfig\": [\n      {\n        \"type\": \"CONSOLE\",\n        \"message\": \"issue in payment\"\n      },\n      {\n        \"type\": \"EMAIL\",\n        \"subject\": \"payment exception threshold breached\"\n      }\n    ]\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/alerts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"alerts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete alert",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/alerts?id=6",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"alerts"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "6"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "event",
+			"item": [
+				{
+					"name": "event",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"client\": \"X\",\n    \"eventType\": \"PAYMENT_EXCEPTION\"\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/events",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"events"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
